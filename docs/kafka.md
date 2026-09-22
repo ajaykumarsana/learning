@@ -1,8 +1,8 @@
 # usage:
 
-<Apache Kafka> is a distributed event streaming platform designed to handle high-throughput, fault-tolerant data streaming and message processing. It allows systems to produce, store, and consume streams of events in real-time, making it ideal for building data pipelines and event-driven architectures. Kafka is widely used for use cases like real-time analytics, log aggregation, and microservice communication.
+{==Apache Kafka==} is a distributed event streaming platform designed to handle high-throughput, fault-tolerant data streaming and message processing. It allows systems to produce, store, and consume streams of events in real-time, making it ideal for building data pipelines and event-driven architectures. Kafka is widely used for use cases like real-time analytics, log aggregation, and microservice communication.
 
-<Kafka>
+# Kafka
 
 - Is a mail delivery service.
 - It is highly scalable system for managing event logs.
@@ -61,7 +61,7 @@ Order placed, the sequence of actions goes as below.
 
 2. KAFKA has order topic in it, order topic will write these data 2. 1. When ever is inventory is update / payment is failed / order is placed / and other event had happend All of these `events` will be stored in kafka giant bucket. 2. 2. These events are organised and durably stored in `topics`, Topics are of categories to which records are published.
 
-3. Kafka will notify the consumers (basically micro services) which are subscribed to the events 3. 1. Kafka actions can be for the step 3 is - update stock / sending notification to customer / update sale status 3. 2. These actions are called consumers which are subscribed to Order Topic. 3. 3. Notification service will send a email to customer and department head 3. 4. inventory service will update data base by updating stock. 3. 4. 1. <invenetory service will Geneare event and add to inventory topic > 3. 4. 1. 1. inventory topic will notify the alert service - send alert to re-stock topic about low stock - re-stock topic will notify the inventory re-stock service 3. 5. payment service Genearate invoice and send invoice to customer
+3. Kafka will notify the consumers (basically micro services) which are subscribed to the events 3. 1. Kafka actions can be for the step 3 is - update stock / sending notification to customer / update sale status 3. 2. These actions are called consumers which are subscribed to Order Topic. 3. 3. Notification service will send a email to customer and department head 3. 4. inventory service will update data base by updating stock. 3. 4. 1. {==invenetory service will Geneare event and add to inventory topic ==} 3. 4. 1. 1. inventory topic will notify the alert service - send alert to re-stock topic about low stock - re-stock topic will notify the inventory re-stock service 3. 5. payment service Genearate invoice and send invoice to customer
 
 in above example all orders `details will store in order topics` similarly for `payments in payments topic` and `inventory (stock) updation event will store in inventory topic`.
 
@@ -71,15 +71,17 @@ After introducing Reak time processing(Streams).
 
 Kafka producer -> Order topic -> [`(input ->) Kafka streams App (-> processed data)` ]-> Sales topic -> Kakfa consumer
 
-<Kafka Streams API>
+# Kafka Streams API
+
 - The Streams API allows you to create real-time apps by continuously transorming and analysing incoming data streams.
 - contineous flow of recods(key,value pairs)
 - provides high level computation functions to process event streams, like transformations and stateful operations
-    - counts, averages, suma and joins
+  - counts, averages, suma and joins
 - Transforming the input streams into output streams.
 - streams API is a library embed in app to perform stream processing.
 
-<kafka partitions> - For Scalability and Performance.
+# kafka partitions - For Scalability and Performance.
+
 It is introduced to support handling of huge data, imagine a app with million users and reciepents has stream of events getting generated to topic there is a need of scale up of system.
 
 Events with the same key are written to the same partition.
@@ -95,7 +97,8 @@ Events with the same key are written to the same partition.
 - Logical Grouping
   - Groups related data for efficient processing.
 
-<Consumer Groups>
+# Consumer Groups
+
 when few topic has millions of events coming in from producer and kafka sends notification to same consumer with millions of events , consumer can't handle full load.
 So we introduce a concept of replicating consumer with help of k8s as a consumer group with a predined groupID, now millions of event will be distributed to consumers in group.
 
@@ -103,7 +106,8 @@ So we introduce a concept of replicating consumer with help of k8s as a consumer
 
 Where does all these data saved?
 
-<Kafka Brokers>
+# Kafka Brokers
+
 Data in topics saved on kafka servers called brokers.
 
 - it is a Server that stores data in topics, manages message distribution to consumers.
@@ -119,7 +123,7 @@ Replay of messages, debugging historical data
 
 ---
 
-<zoo keeper>
+# zoo keeper
 
 Kafka needs to track below with help of zookeeper to track below
 
