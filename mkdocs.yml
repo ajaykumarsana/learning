@@ -4,8 +4,7 @@ site_url: "https://github.io/aj-learning" # Optional, update later
 # Define the navigation sidebar structure
 nav:
   - Home: index.md
-  - Installation Guide: installation.md
-  - Usage: usage.md
+  - REST: REST.md
 
 # Choose a theme (the clean, popular "material" theme is recommended)
 theme:
