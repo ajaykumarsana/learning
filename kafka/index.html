@@ -1,0 +1,499 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.io/aj-learning/kafka/">
+      
+      
+        <link rel="prev" href="../REST/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Kafka - AJ tech notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#usage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="AJ tech notes" class="md-header__button md-logo" aria-label="AJ tech notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AJ tech notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Kafka
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AJ tech notes" class="md-nav__button md-logo" aria-label="AJ tech notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AJ tech notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REST/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="usage">usage:</h1>
+<p>{==Apache Kafka==} is a distributed event streaming platform designed to handle high-throughput, fault-tolerant data streaming and message processing. It allows systems to produce, store, and consume streams of events in real-time, making it ideal for building data pipelines and event-driven architectures. Kafka is widely used for use cases like real-time analytics, log aggregation, and microservice communication.</p>
+<h1 id="kafka">Kafka</h1>
+<ul>
+<li>Is a mail delivery service.</li>
+<li>It is highly scalable system for managing event logs.</li>
+<li>It has producers</li>
+<li>Producers are those services that publish (write) event to kafka.</li>
+<li>kafka has topics</li>
+<li>it is a type of categorizing</li>
+<li>it has consumers</li>
+<li>consumers are those that subscribe to the event sent by produces</li>
+<li>consumers can generate event to the topic</li>
+<li>kakfa has a mechanism of generating chain of events</li>
+<li>It has real-time processing (Stream API).</li>
+<li>kafka partitions</li>
+<li>kafka brokers</li>
+<li>consumer grouping</li>
+<li>Zookeeper</li>
+</ul>
+<p>when we read/ write data to kafka , we do this in form of events.
+This event contains - Key, value, Time stamp, meta data.</p>
+<p>------------------------------------------ Kafka vs Databse -----------------------------</p>
+<h2 id="it-is-not-a-replace-for-databse-but-it-is-event-streamng-platform-for-higher-throughput">It is not a replace for databse, but it is event streamng platform for higher throughput.</h2>
+<p>Imagine we build ecommerce application called streamStore.</p>
+<p>we have multiple micro services deals with</p>
+<ul>
+<li>Payments</li>
+<li>Inventory
+  update stock in data base</li>
+<li>Users</li>
+<li>Orders</li>
+<li>Notifications</li>
+<li>Analytics</li>
+</ul>
+<p>when customer places a order , it does following</p>
+<ul>
+<li>check stock</li>
+<li>accept payment</li>
+<li>confirmation</li>
+<li>track the order
+  i.e order is tighlty couples with various other services.
+  Each service directly calls another service.
+  Example : when payment service goes down entire process is disrupted.
+  analytics can't record data</li>
+</ul>
+<p>When our architecture is tightly couples with each other services and requests are coming in millions which leads to application crash.</p>
+<p>To avoid potential failures like this, kafka is introudced.</p>
+<p><code>For Ex:</code>
+Order placed, the sequence of actions goes as below.</p>
+<ol>
+<li>
+<p>(Producer- generate event record on purchase sends to kafka, it doesn't wait for the response)</p>
+</li>
+<li>
+<p>KAFKA has order topic in it, order topic will write these data 2. 1. When ever is inventory is update / payment is failed / order is placed / and other event had happend All of these <code>events</code> will be stored in kafka giant bucket. 2. 2. These events are organised and durably stored in <code>topics</code>, Topics are of categories to which records are published.</p>
+</li>
+<li>
+<p>Kafka will notify the consumers (basically micro services) which are subscribed to the events 3. 1. Kafka actions can be for the step 3 is - update stock / sending notification to customer / update sale status 3. 2. These actions are called consumers which are subscribed to Order Topic. 3. 3. Notification service will send a email to customer and department head 3. 4. inventory service will update data base by updating stock. 3. 4. 1. {==invenetory service will Geneare event and add to inventory topic ==} 3. 4. 1. 1. inventory topic will notify the alert service - send alert to re-stock topic about low stock - re-stock topic will notify the inventory re-stock service 3. 5. payment service Genearate invoice and send invoice to customer</p>
+</li>
+</ol>
+<p>in above example all orders <code>details will store in order topics</code> similarly for <code>payments in payments topic</code> and <code>inventory (stock) updation event will store in inventory topic</code>.</p>
+<p>Kafka producer -&gt; topic -&gt; Kafka consumer</p>
+<p>After introducing Reak time processing(Streams).</p>
+<p>Kafka producer -&gt; Order topic -&gt; [<code>(input -&gt;) Kafka streams App (-&gt; processed data)</code> ]-&gt; Sales topic -&gt; Kakfa consumer</p>
+<h1 id="kafka-streams-api">Kafka Streams API</h1>
+<ul>
+<li>The Streams API allows you to create real-time apps by continuously transorming and analysing incoming data streams.</li>
+<li>contineous flow of recods(key,value pairs)</li>
+<li>provides high level computation functions to process event streams, like transformations and stateful operations</li>
+<li>counts, averages, suma and joins</li>
+<li>Transforming the input streams into output streams.</li>
+<li>streams API is a library embed in app to perform stream processing.</li>
+</ul>
+<h1 id="kafka-partitions-for-scalability-and-performance">kafka partitions - For Scalability and Performance.</h1>
+<p>It is introduced to support handling of huge data, imagine a app with million users and reciepents has stream of events getting generated to topic there is a need of scale up of system.</p>
+<p>Events with the same key are written to the same partition.</p>
+<ul>
+<li>Scalability</li>
+<li>Distributes data across mulitple kafka brokers</li>
+<li>Paralellism</li>
+<li>Allow concurrent message processing</li>
+<li>Ordering</li>
+<li>Guarantees order within partition</li>
+<li>Fault Tolerance</li>
+<li>Replication and leader failover</li>
+<li>Logical Grouping</li>
+<li>Groups related data for efficient processing.</li>
+</ul>
+<h1 id="consumer-groups">Consumer Groups</h1>
+<p>when few topic has millions of events coming in from producer and kafka sends notification to same consumer with millions of events , consumer can't handle full load.
+So we introduce a concept of replicating consumer with help of k8s as a consumer group with a predined groupID, now millions of event will be distributed to consumers in group.</p>
+<ul>
+<li>Kafka distributes load automatically by assigning partitions to consumers</li>
+</ul>
+<p>Where does all these data saved?</p>
+<h1 id="kafka-brokers">Kafka Brokers</h1>
+<p>Data in topics saved on kafka servers called brokers.</p>
+<ul>
+<li>it is a Server that stores data in topics, manages message distribution to consumers.</li>
+<li>Fault Tolerance</li>
+<li>Topics partitions are distributed across multiple brokers</li>
+<li>Each partition has a leader broker and mulitple replicas</li>
+</ul>
+<p>Note :
+Stores messages on disk for a <code>configuratble retention period</code>, retain data.
+Benefit of data retention is Real time data processing.
+Consumer can read when ever needed
+Replay of messages, debugging historical data</p>
+<hr />
+<h1 id="zoo-keeper">zoo keeper</h1>
+<p>Kafka needs to track below with help of zookeeper to track below</p>
+<ul>
+<li>Each kafka has a leader broker</li>
+<li>facilitates election of the leader broker</li>
+<li>
+<p>Maintain registry of all active brokers in the cluster</p>
+</li>
+<li>
+<p>zookeepr is a centralized service for managing meta data and cordination tasks for distributed system ( brokers)</p>
+</li>
+<li>External dependecy - apache zookeeper</li>
+<li>kafka 3.0 removed zookeepr but introduced KRaft</li>
+<li>Metadata is managed natively with in kafka brokers</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
