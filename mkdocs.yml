@@ -1,0 +1,12 @@
+site_name: "AJ learning mkdocs"
+site_url: "https://github.io/aj-learning" # Optional, update later
+
+# Define the navigation sidebar structure
+nav:
+  - Home: index.md
+  - Installation Guide: installation.md
+  - Usage: usage.md
+
+# Choose a theme (the clean, popular "material" theme is recommended)
+theme:
+  name: material
