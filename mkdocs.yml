@@ -9,17 +9,23 @@ nav:
   - RAG: RAG.md
   - mysql:
       - Intro: mysql/readme.md
-      - commands: mysql/commands.md
-      - string functions: mysql/string functions.md
-      - refine commands: mysql/refine commands.md
-      - aggregate: mysql/aggregate.md
-      - dates: mysql/dates.md
-      - logical & comparator: mysql/logical & comparator.md
-      - constraints & alter: mysql/constraints & alter.md
-      - relations: mysql/relations.md
-      - views & SQL modes & window functions: mysql/views & SQL modes & window functions.md
-      - self SchemaDesign: mysql/self SchemaDesign.md
-      - DB triggers: mysql/DB triggers.md
+      - 1 commands: mysql/commands.md
+      - 2 string functions: mysql/string functions.md
+      - 3 refine commands: mysql/refine commands.md
+      - 4 aggregate: mysql/aggregate.md
+      - 5 dates: mysql/dates.md
+      - 6 logical & comparator: mysql/logical & comparator.md
+      - 7 constraints & alter: mysql/constraints & alter.md
+      - 8 relations: mysql/relations.md
+      - 9 views & SQL modes & window functions: mysql/views & SQL modes & window functions.md
+      - 10 self SchemaDesign: mysql/self SchemaDesign.md
+      - 12 DB triggers: mysql/DB triggers.md
+  - servers:
+      - proxy: servers/proxy.md
+      - nginx:
+          - overview: servers/nginx/nginx.md
+          - k8s: servers/nginx/nginx-k8s.md
+          - cloud: servers/nginx/nginx-cloud.md
 
 # Choose a theme (the clean, popular "material" theme is recommended)
 theme:
