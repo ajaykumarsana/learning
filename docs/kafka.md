@@ -1,6 +1,6 @@
 # usage:
 
-{==Apache Kafka==} is a distributed event streaming platform designed to handle high-throughput, fault-tolerant data streaming and message processing. It allows systems to produce, store, and consume streams of events in real-time, making it ideal for building data pipelines and event-driven architectures. Kafka is widely used for use cases like real-time analytics, log aggregation, and microservice communication.
+**Apache Kafka** is a distributed event streaming platform designed to handle high-throughput, fault-tolerant data streaming and message processing. It allows systems to produce, store, and consume streams of events in real-time, making it ideal for building data pipelines and event-driven architectures. Kafka is widely used for use cases like real-time analytics, log aggregation, and microservice communication.
 
 # Kafka
 
@@ -25,7 +25,7 @@ This event contains - Key, value, Time stamp, meta data.
 
 ------------------------------------------ Kafka vs Databse -----------------------------
 
-## It is not a replace for databse, but it is event streamng platform for higher throughput.
+**It is not a replace for databse, but it is event streamng platform for higher throughput**
 
 Imagine we build ecommerce application called streamStore.
 
@@ -61,7 +61,7 @@ Order placed, the sequence of actions goes as below.
 
 2. KAFKA has order topic in it, order topic will write these data 2. 1. When ever is inventory is update / payment is failed / order is placed / and other event had happend All of these `events` will be stored in kafka giant bucket. 2. 2. These events are organised and durably stored in `topics`, Topics are of categories to which records are published.
 
-3. Kafka will notify the consumers (basically micro services) which are subscribed to the events 3. 1. Kafka actions can be for the step 3 is - update stock / sending notification to customer / update sale status 3. 2. These actions are called consumers which are subscribed to Order Topic. 3. 3. Notification service will send a email to customer and department head 3. 4. inventory service will update data base by updating stock. 3. 4. 1. {==invenetory service will Geneare event and add to inventory topic ==} 3. 4. 1. 1. inventory topic will notify the alert service - send alert to re-stock topic about low stock - re-stock topic will notify the inventory re-stock service 3. 5. payment service Genearate invoice and send invoice to customer
+3. Kafka will notify the consumers (basically micro services) which are subscribed to the events 3. 1. Kafka actions can be for the step 3 is - update stock / sending notification to customer / update sale status 3. 2. These actions are called consumers which are subscribed to Order Topic. 3. 3. Notification service will send a email to customer and department head 3. 4. inventory service will update data base by updating stock. 3. 4. 1. **invenetory service will Geneare event and add to inventory topic** 3. 4. 1. 1. inventory topic will notify the alert service - send alert to re-stock topic about low stock - re-stock topic will notify the inventory re-stock service 3. 5. payment service Genearate invoice and send invoice to customer
 
 in above example all orders `details will store in order topics` similarly for `payments in payments topic` and `inventory (stock) updation event will store in inventory topic`.
 
