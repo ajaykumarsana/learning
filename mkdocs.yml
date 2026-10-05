@@ -8,7 +8,7 @@ nav:
   - Kafka: kafka.md
   - RAG: RAG.md
   - mysql:
-      - Intro: mysql/index.md
+      - Intro: mysql/readme.md
       - commands: mysql/commands.md
       - string functions: mysql/string functions.md
       - refine commands: mysql/refine commands.md
@@ -24,6 +24,13 @@ nav:
 # Choose a theme (the clean, popular "material" theme is recommended)
 theme:
   name: material
-
+  features:
+    - content.code.copy # Adds the one-click copy button
 markdown_extensions:
-  - pymdownx.snippets
+  - pymdownx.highlight:
+    anchor_linenums: true
+    line_spans: __span
+    pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets # Needed if you are using --8<-- file inclusion
+  - pymdownx.superfences # Required for syntax highlighting and nested blocks
