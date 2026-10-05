@@ -8,8 +8,17 @@ nav:
   - Kafka: kafka.md
   - RAG: RAG.md
   - mysql:
-      - commands: mysql1/commands.md
+      - commands: mysql/commands.md
       - string functions: mysql/string functions.md
+      - refine commands: mysql/refine commands.md
+      - aggregate: mysql/aggregate.md
+      - dates: mysql/dates.md
+      - logical & comparator: mysql/logical & comparator.md
+      - constraints & alter: mysql/constraints & alter.md
+      - relations: mysql/relations.md
+      - views & SQL modes & window functions: mysql/views & SQL modes & window functions.md
+      - selftSchemaDesign: mysql/selftSchemaDesign.md
+      - DB triggers: mysql/DB triggers.md
 
 # Choose a theme (the clean, popular "material" theme is recommended)
 theme:

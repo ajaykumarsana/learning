@@ -224,3 +224,5 @@
   | American G... | GaimanNeil | 12 in stock |
 
 - `left(title,10)` and `substr(title,1,10)` does the same
+
+Referencet:[2.sql](2.sql)
