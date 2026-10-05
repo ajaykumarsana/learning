@@ -7,7 +7,7 @@ nav:
   - REST: REST.md
   - Kafka: kafka.md
   - RAG: RAG.md
-  - mysql: mysql/index.md
+  - mysql:
       - commands: mysql/commands.md
       - string functions: mysql/string functions.md
       - refine commands: mysql/refine commands.md
