@@ -1,0 +1,16 @@
+name: 'AJ' # scalar
+location: 'BLR'
+profession: 'IT'
+Hobbies: # list
+  - 'watching tv'
+  - 'nothing specifi'
+  - 'Explore Tech'
+Favourite_foods: #Mapper
+  veg: 'anything'
+  nonveg: 'biryani'
+  fruits: 'anything'
+Thisfileisabout: | #Multi line scalar
+ this file is 
+ about yml syntax
+ and its usage with
+ basic example
