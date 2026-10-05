@@ -8,6 +8,7 @@ nav:
   - Kafka: kafka.md
   - RAG: RAG.md
   - mysql:
+      - Intro: mysql/index.md
       - commands: mysql/commands.md
       - string functions: mysql/string functions.md
       - refine commands: mysql/refine commands.md
