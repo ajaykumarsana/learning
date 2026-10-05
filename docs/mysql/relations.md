@@ -157,3 +157,7 @@ ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint f
 
 - it is used for rounding of decimals with input of value, decimal digit to round of
 - syntax `round(column,<no>`
+
+```sql
+--8<-- "docs/mysql/many to many.sql"
+```

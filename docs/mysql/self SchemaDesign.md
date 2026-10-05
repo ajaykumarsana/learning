@@ -45,3 +45,7 @@
 - post id
 - tag name
 - created at
+
+```sql
+--8<-- "docs/mysql/10.sql"
+```

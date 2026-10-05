@@ -224,3 +224,7 @@
   | American G... | GaimanNeil | 12 in stock |
 
 - `left(title,10)` and `substr(title,1,10)` does the same
+
+```sql
+--8<-- "docs/mysql/2.sql"
+```

@@ -139,3 +139,7 @@
 - `lag(salary) over(order by salary), lead(salary) over(order by salary)`
 - For better calculation use deduction or subtraction on ordered column.
 - `salary - lag(salary) over(order by salary) as lag_salary,  salary - lead(salary) over(order by salary) lead_salary `
+
+```sql
+--8<-- "docs/mysql/9.sql"
+```
