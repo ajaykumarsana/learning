@@ -311,3 +311,7 @@ you can locate to execute sql queries which stored in a file.
 
 - used for renaming the table.
 - `rename table price to price_list`
+
+```sql
+--8<-- "docs/mysql/2.sql"
+```
