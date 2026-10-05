@@ -104,3 +104,26 @@ Mostly used data types are varchar(variable in length) and int(whole number)
 # warnings
 
 - `show warnings` // will display warnings in table
+
+```sql
+--8<-- "docs/mysql/2.sql"
+
+```
+
+```sql
+--8<-- "docs/mysql/9.sql"
+
+```
+
+```sql
+--8<-- "docs/mysql/10.sql"
+
+```
+
+```sql
+--8<-- "docs/mysql/11 ig_clone_data.sql"
+```
+
+```sql
+--8<-- "docs/mysql/11_practise.sql"
+```
