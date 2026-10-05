@@ -8,7 +8,8 @@ nav:
   - Kafka: kafka.md
   - RAG: RAG.md
   - mysql:
-      - commands: mysql/commands.md
+      - commands: mysql1/commands.md
+      - string functions: mysql/string functions.md
 
 # Choose a theme (the clean, popular "material" theme is recommended)
 theme:
