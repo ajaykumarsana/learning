@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-configmap
+  namespace: aj-namespace # Best practice to specify namespace despite setting while executing kubectl commands.
+data:
+  db_url: mysql-service.database

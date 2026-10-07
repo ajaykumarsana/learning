@@ -27,6 +27,19 @@ nav:
           - overview: servers/nginx/nginx.md
           - k8s: servers/nginx/nginx-k8s.md
           - cloud: servers/nginx/nginx-cloud.md
+  - k8s:
+      - architecture: k8s/architecture.md
+      - localsetup: k8s/localsetup.md
+      - minikube: k8s/minikube.md
+      - basic minikube kubectl commands: k8s/basic minikube kubectl commands.md
+      - Configurations- deployment&service: k8s/Configurations- deployment&service.md
+      - example: k8s/example/index.md
+      - namespaces: k8s/namespaces/index.md
+      - ingress: k8s/ingress/index.md
+      - helm: k8s/helm/index.md
+      - volumes: k8s/volumes.md
+      - statefulSet: k8s/statefulSet.md
+      - services: k8s/service Types.md
 
 # Choose a theme (the clean, popular "material" theme is recommended)
 theme:
