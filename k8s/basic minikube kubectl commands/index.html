@@ -1,0 +1,1747 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.io/aj-learning/k8s/basic%20minikube%20kubectl%20commands/">
+      
+      
+        <link rel="prev" href="../minikube/">
+      
+      
+        <link rel="next" href="../Configurations-%20deployment%26service/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>basic minikube kubectl commands - AJ tech notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#to-get-services" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AJ tech notes" class="md-header__button md-logo" aria-label="AJ tech notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AJ tech notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              basic minikube kubectl commands
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AJ tech notes" class="md-nav__button md-logo" aria-label="AJ tech notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AJ tech notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../REST/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kafka/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RAG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../yaml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Yaml
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mysql
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    mysql
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/string%20functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 string functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/refine%20commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 refine commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/aggregate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4 aggregate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/dates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5 dates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/logical%20%26%20comparator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6 logical & comparator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/constraints%20%26%20alter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7 constraints & alter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/relations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8 relations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/views%20%26%20SQL%20modes%20%26%20window%20functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9 views & SQL modes & window functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/self%20SchemaDesign/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 self SchemaDesign
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mysql/DB%20triggers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12 DB triggers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    servers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    servers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servers/proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    nginx
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    nginx
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servers/nginx/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servers/nginx/nginx-k8s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    k8s
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servers/nginx/nginx-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    k8s
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    k8s
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../localsetup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    localsetup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minikube/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    minikube
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    basic minikube kubectl commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Configurations-%20deployment%26service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurations- deployment&service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../namespaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    namespaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ingress/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ingress
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    helm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../volumes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    volumes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../statefulSet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    statefulSet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service%20Types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<ol>
+<li>
+<p>PS C:\Users\AjayChanduSuhas&gt; kubectl get nodes
+NAME       STATUS   ROLES           AGE   VERSION
+minikube   Ready    control-plane   13m   v1.33.1</p>
+</li>
+<li>
+<p>PS D:\tech\others&gt; kubectl get pods 
+No resources found in default namespace.
+PS D:\tech\others&gt; kubectl get pod 
+No resources found in default namespace.</p>
+</li>
+</ol>
+<h1 id="to-get-services">to get services</h1>
+<p>PS D:\tech\others&gt; kubectl get services
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   33m</p>
+<p>-- no pods would be present at first, we should create them----</p>
+<p>in k8s pods is very small unit.
+when you do  <code>kubectl create -h</code>, you won't see pods available commands.
+so , creating a pod refers to createing a deployment.
+Deployment- abstraction over pods.</p>
+<ol>
+<li>
+<p>Create a pod(deployment)
+<code>kubectl create deployment &lt;NAME&gt; --image=&lt;image_name&gt;</code>
+PS D:\tech\others&gt; kubectl create deployment nginx-dep --image=nginx
+deployment.apps/nginx-dep created
+<deployment has all info i.e blueprint to create pod>
+<The above command will create 1 pod,1 replica>
+it will fetch latest docker nginx image.</p>
+</li>
+<li>
+<ol>
+<li>as pod abstraction is deployment, it can be verified by checking deployment.
+run <code>kubectl get deployment</code>
+PS D:\tech\others&gt; kubectl get deployment
+NAME        READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-dep   1/1     1            1           3m12s </li>
+</ol>
+</li>
+<li>
+<ol>
+<li>
+<ol>
+<li>verify pod created or not.
+run <code>kubectl get pod</code>
+pod will have name <deployment_name-hashcode-podename>
+ PS D:\tech\others&gt; kubectl get pod   <br />
+NAME                      READY   STATUS    RESTARTS   AGE
+nginx-dep-5879cc9-5httx   1/1     Running   0          2m10s
+PS D:\tech\others&gt; kubectl get pods  <br />
+NAME                      READY   STATUS    RESTARTS   AGE
+nginx-dep-5879cc9-5httx   1/1     Running   0          2m17s</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>
+<ol>
+<li>when you create a pod, it comes with replicaset too
+Run <code>kubectl get replicaset</code>
+PS D:\tech\others&gt; kubectl get replicaset
+NAME                DESIRED   CURRENT   READY   AGE
+nginx-dep-5879cc9   1         1         1       8m15s</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>replica will have name <deployment_name-hashcode></p>
+<p>replicaset is managing the replicas of a pod.</p>
+<ol>
+<li>
+<ol>
+<li>you can configure multiple replicas while creating a pod.
+//// Layers of abstraction
+nginx-dep.yml explained</li>
+</ol>
+</li>
+</ol>
+<h1 id="deployment-manages-replica-set">. Deployment manages replica set</h1>
+<h1 id="replicaset-manages-all-replicas-of-pod">. replicaset manages all replicas of pod</h1>
+<h1 id="pod-is-abstraction-of-a-container">. pod is abstraction of a container.</h1>
+<h1 id="deployment-manages-pods">. Deployment manages Pods</h1>
+<ol>
+<li>Edit a deplooyment ( pods)
+Run <code>kubectl edit deployment &lt;deployment_name&gt;</code>
+it will open a editor with configuration of a deployment with default values.</li>
+</ol>
+<p>make changes, i have made version change in image and save.</p>
+<p>PS D:\tech\others&gt; kubectl edit deployment nginx-dep
+deployment.apps/nginx-dep edited</p>
+<p>PS D:\tech\others&gt; kubectl edit deployment nginx-dep
+deployment.apps/nginx-dep edited
+NAME                         READY   STATUS              RESTARTS   AGE
+nginx-dep-579d65b68f-lrvq5   1/1     Running             0          86s
+nginx-dep-767f689748-nsg7d   0/1     ContainerCreating   0          8s
+PS D:\tech\others&gt; kubectl get pod
+NAME                         READY   STATUS              RESTARTS   AGE
+nginx-dep-579d65b68f-lrvq5   1/1     Running             0          96s
+nginx-dep-767f689748-nsg7d   0/1     ContainerCreating   0          18s
+PS D:\tech\others&gt; kubectl get pod
+NAME                         READY   STATUS      RESTARTS   AGE
+nginx-dep-579d65b68f-lrvq5   0/1     Completed   0          101s
+nginx-dep-767f689748-nsg7d   1/1     Running     0          23s
+PS D:\tech\others&gt; kubectl get pod
+NAME                         READY   STATUS    RESTARTS   AGE
+nginx-dep-767f689748-nsg7d   1/1     Running   0          28s</p>
+<p>after i edit save (version change twice), old pod will complete and create a new pod. But replica set will maintain all sets.
+That's the magic of kubernetes.</p>
+<ol>
+<li>
+<ol>
+<li>PS D:\tech\others&gt; kubectl get replicaset
+NAME                   DESIRED   CURRENT   READY   AGE
+nginx-dep-579d65b68f   0         0         0       3m24s
+nginx-dep-5879cc9      0         0         0       23m
+nginx-dep-767f689748   1         1         1       2m6s</li>
+</ol>
+</li>
+<li>
+<p>to check logs of pod
+usefull for debugging.
+Run <code>kubectl logs &lt;pod_name&gt;</code></p>
+</li>
+</ol>
+<p>PS D:\tech\others&gt; kubectl logs nginx-dep-767f689748-nsg7d 
+PS D:\tech\others&gt; </p>
+<ol>
+<li>
+<p>Describe pod or check complete info of pod.
+Run <code>kubectl describe pod &lt;pod_name&gt;</code>
+usefull for debugging.
+<you can run this when you notice 0/1 as READY while getting pods>
+PS D:\tech\others&gt; kubectl logs nginx-dep-767f689748-nsg7d 
+PS D:\tech\others&gt; kubectl describe pod nginx-dep-767f689748-nsg7d                               <br />
+Name:             nginx-dep-767f689748-nsg7d
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Sun, 20 Jul 2025 00:38:07 +0530
+Labels:           app=nginx-dep
+                  pod-template-hash=767f689748
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.7
+IPs:
+  IP:           10.244.0.7
+Controlled By:  ReplicaSet/nginx-dep-767f689748
+Containers:
+  nginx:
+    Container ID:   docker://fd4dc9db169d0b4082e620da8f7939da4b1ed64cf82a41ed237804058d349df5
+    Image:          nginx:1.17
+    Image ID:       docker-pullable://nginx@sha256:6fff55753e3b34e36e24e37039ee9eae1fe38a6420d8ae16ef37c92d1eb26699
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 20 Jul 2025 00:38:29 +0530
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-8n2ll (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       True
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  7m2s   default-scheduler  Successfully assigned default/nginx-dep-767f689748-nsg7d to minikube
+  Normal  Pulling    7m1s   kubelet            Pulling image "nginx:1.17"
+  Normal  Pulled     6m41s  kubelet            Successfully pulled image "nginx:1.17" in 20.956s (20.956s including waiting). Image size: 126773960 bytes.
+  Normal  Created    6m40s  kubelet            Created container: nginx
+  Normal  Started    6m40s  kubelet            Started container nginx
+PS D:\tech\others&gt;</p>
+</li>
+<li>
+<p>Get inside a pod.
+Run <code>kubectl exec -it &lt;POD_NAME&gt; --bin/bash</code>
+Ued for debugging.
+with above we can go into application container(POD).
+PS D:\tech\others&gt; kubectl exec -it nginx-dep-767f689748-nsg7d -- bin/bash
+root@nginx-dep-767f689748-nsg7d:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@nginx-dep-767f689748-nsg7d:/# cd /var/
+root@nginx-dep-767f689748-nsg7d:/var# ls
+backups  cache  lib  local  lock  log  mail  opt  run  spool  tmp
+root@nginx-dep-767f689748-nsg7d:/var# exit
+exit
+PS D:\tech\others&gt; </p>
+</li>
+<li>
+<p>Delete deployment
+Run <code>kubectl delete deployment &lt;deployment_name&gt;</code>
+PS D:\tech\others&gt; kubectl get deployment
+NAME        READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-dep   1/1     1            1           36m
+PS D:\tech\others&gt; kubectl get pod     <br />
+NAME                         READY   STATUS    RESTARTS   AGE
+nginx-dep-767f689748-nsg7d   1/1     Running   0          16m
+PS D:\tech\others&gt; kubectl get replicaset
+NAME                   DESIRED   CURRENT   READY   AGE
+nginx-dep-579d65b68f   0         0         0       17m
+nginx-dep-5879cc9      0         0         0       37m
+nginx-dep-767f689748   1         1         1       16m</p>
+</li>
+</ol>
+<p>PS D:\tech\others&gt; kubectl delete deployment nginx-dep
+deployment.apps "nginx-dep" deleted
+PS D:\tech\others&gt; kubectl get deployment
+No resources found in default namespace.
+PS D:\tech\others&gt; kubectl get replicaset
+No resources found in default namespace.
+PS D:\tech\others&gt; kubectl get pod
+No resources found in default namespace.</p>
+<p><When you delete deplooyment,it will delete deployments, pods, replica sets></p>
+<p><code>NOTE:</code></p>
+<p>Deployment // all CRUD will affect beneath the deployment set.
+    REPLICASET
+        POD</p>
+<p>------------------------ In general there is lot of options required while creating a deployment-----
+So to smoothen we use k8s config files.</p>
+<ol>
+<li>Apply configuration.
+Run <code>kubectl apply -f &lt;config-file&gt;.yml</code>
+Create any configuration.yml file</li>
+</ol>
+<p>PS D:\tech\others&gt; kubectl apply -f kubernetes/nginx-dep.yml
+deployment.apps/nginx-dep created
+PS D:\tech\others&gt; kubectl get deployment
+NAME        READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-dep   1/1     1            1           3s
+PS D:\tech\others&gt; kubectl get pod      <br />
+NAME                         READY   STATUS    RESTARTS   AGE
+nginx-dep-7f65fcf556-nk52t   1/1     Running   0          7s
+PS D:\tech\others&gt; kubectl get replicaset 
+NAME                   DESIRED   CURRENT   READY   AGE
+nginx-dep-7f65fcf556   1         1         1       12s
+PS D:\tech\others&gt; </p>
+<p>NOTE : you can change config file and apply again.
+<i had changed nginx-dep.yml file with replica value as 2></p>
+<ol>
+<li>
+<ol>
+<li>PS D:\tech\others&gt; kubectl apply -f kubernetes/nginx-dep.yml
+deployment.apps/nginx-dep configured
+PS D:\tech\others&gt; 
+you can see 2 replicas , 2 pods running.
+PS D:\tech\others&gt; kubectl get replicaset
+NAME                   DESIRED   CURRENT   READY   AGE
+nginx-dep-7f65fcf556   2         2         2       5m25s
+PS D:\tech\others&gt; kubectl get pod
+NAME                         READY   STATUS    RESTARTS   AGE
+nginx-dep-7f65fcf556-fl6lr   1/1     Running   0          66s <NOTICE that new one is created after applying configuration>
+nginx-dep-7f65fcf556-nk52t   1/1     Running   0          5m38s
+PS D:\tech\others&gt; kubectl get deployment
+NAME        READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-dep   2/2     2            2           5m43s</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>delete deployment by using file.
+Run <code>kubectl delete -f &lt;config-file&gt;.ymtl</code>
+PS D:\tech\others&gt; kubectl delete -f kubernetes/nginx-dep.yml
+deployment.apps "nginx-dep" deleted
+PS D:\tech\others&gt; kubectl get nodes
+NAME       STATUS   ROLES           AGE    VERSION
+minikube   Ready    control-plane   103m   v1.33.1
+PS D:\tech\others&gt; kubectl get deployment
+No resources found in default namespace.
+PS D:\tech\others&gt; kubectl get pod
+No resources found in default namespace.
+PS D:\tech\others&gt; kubectl get replicaset
+No resources found in default namespace.
+PS D:\tech\others&gt; </li>
+</ol>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

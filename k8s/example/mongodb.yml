@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers: # pod blueprint 
+        - name: mongodb
+          image: mongo:6.0
+          ports:
+            - containerPort: 27017 #this port has to match with service target port
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              # value: root // use this incase direct value instead of secret
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongo-root-username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              # value: example
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongo-root-password
+---
+# creating a service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb # to Connect to pod through label
+  ports:
+    - protocol: TCP
+      port: 27017 #service port, this can be different
+      targetPort: 27017 #container port of deployment
+

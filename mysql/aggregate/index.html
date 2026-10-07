@@ -1,0 +1,1697 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.io/aj-learning/mysql/aggregate/">
+      
+      
+        <link rel="prev" href="../refine%20commands/">
+      
+      
+        <link rel="next" href="../dates/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>4 aggregate - AJ tech notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#count" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AJ tech notes" class="md-header__button md-logo" aria-label="AJ tech notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AJ tech notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4 aggregate
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AJ tech notes" class="md-nav__button md-logo" aria-label="AJ tech notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AJ tech notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../REST/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kafka/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RAG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../yaml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Yaml
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mysql
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    mysql
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../string%20functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 string functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refine%20commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 refine commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4 aggregate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5 dates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logical%20%26%20comparator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6 logical & comparator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../constraints%20%26%20alter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7 constraints & alter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../relations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8 relations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../views%20%26%20SQL%20modes%20%26%20window%20functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9 views & SQL modes & window functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../self%20SchemaDesign/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 self SchemaDesign
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DB%20triggers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12 DB triggers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    servers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    servers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servers/proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    nginx
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    nginx
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servers/nginx/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servers/nginx/nginx-k8s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    k8s
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servers/nginx/nginx-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    k8s
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    k8s
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/localsetup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    localsetup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/minikube/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    minikube
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/basic%20minikube%20kubectl%20commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    basic minikube kubectl commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/Configurations-%20deployment%26service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurations- deployment&service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/namespaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    namespaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/ingress/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ingress
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/helm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    helm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/volumes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    volumes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/statefulSet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    statefulSet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/service%20Types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="count">count</h1>
+<ul>
+<li>it is used to count the number of rowws returns by the query.</li>
+<li>you can use * to get row count</li>
+<li>column can also be passed to count function it would return count of non null rows.</li>
+<li><code>mysql&gt; select count(_) from books;</code>
+  +----------+
+  | count(_) |
+  +----------+
+  | 20 |
+  +----------+
+  1 row in set (0.354 sec)</li>
+<li><code>mysql&gt; select count(author_lname) from books;</code>
+  +---------------------+
+  | count(author_lname) |
+  +---------------------+
+  | 19 |
+  +---------------------+
+  1 row in set (0.008 sec)</li>
+<li>can be combined with distinct too.</li>
+<li><code>mysql&gt; select count(distinct author_lname) from books;</code> // removes duplicated and null then reutn the count
+  +------------------------------+
+  | count(distinct author_lname) |
+  +------------------------------+
+  | 11 |
+  +------------------------------+
+  1 row in set (0.222 sec)</li>
+</ul>
+<h1 id="group-by">Group by</h1>
+<ul>
+<li>summarize or aggregate idntical data into single rows.</li>
+<li>when <code>gropu by</code> applied at column level it groups same data rows together and return, you can check that by having count(*)</li>
+<li>it return grouped rows as single rows.</li>
+<li>syntax <code>select column_name from &lt;table&gt; group by &lt;col_name&gt;;</code></li>
+<li>column_name has to be selected otherwise it throws error.</li>
+<li>we can do multiple column group by specifying mulitple column names</li>
+<li>syntax <code>select columnname from &lt;table&gt; group by &lt;col_name&gt;,&lt;col_name2&gt;;</code></li>
+<li><code>group by</code> can be done by aliases also.</li>
+<li><code>mysql&gt; select author_lname,count(*) from books group by author_lname;</code>
+  +----------------+----------+
+  | author_lname | count(*) |
+  +----------------+----------+
+  | Lahiri | 2 |
+  | Gaiman | 3 |
+  | Eggers | 3 |
+  | Chabon | 1 |
+  | Smith | 1 |
+  | Carver | 2 |
+  | DeLillo | 1 |
+  | Steinbeck | 1 |
+  | Foster Wallace | 2 |
+  | Harris | 2 |
+  | Saunders | 1 |
+  | NULL | 1 |
+  +----------------+----------+
+  12 rows in set (0.208 sec)</li>
+<li><code>mysql&gt; select author_lname,count(*) from books group by author_lname order by author_lname;</code>
+  +----------------+----------+
+  | author_lname | count(*) |
+  +----------------+----------+
+  | NULL | 1 |
+  | Carver | 2 |
+  | Chabon | 1 |
+  | DeLillo | 1 |
+  | Eggers | 3 |
+  | Foster Wallace | 2 |
+  | Gaiman | 3 |
+  | Harris | 2 |
+  | Lahiri | 2 |
+  | Saunders | 1 |
+  | Smith | 1 |
+  | Steinbeck | 1 |
+  +----------------+----------+
+  12 rows in set (0.010 sec)</li>
+<li><code>mysql&gt; select author_lname, count(*) from books group by author_lname, author_fname;</code>
+  +----------------+----------+
+  | author_lname | count(*) |
+  +----------------+----------+
+  | Lahiri | 2 |
+  | Gaiman | 3 |
+  | Eggers | 3 |
+  | Chabon | 1 |
+  | Smith | 1 |
+  | Carver | 2 |
+  | DeLillo | 1 |
+  | Steinbeck | 1 |
+  | Foster Wallace | 2 |
+  | Harris | 1 |
+  | Harris | 1 |
+  | Saunders | 1 |
+  | NULL | 1 |
+  +----------------+----------+
+  13 rows in set (0.010 sec)</li>
+<li><code>mysql&gt; SELECT CONCAT(author_fname, ' ', author_lname) AS author,  COUNT(*)</code>
+  <code>-&gt; FROM books</code>
+  <code>-&gt; GROUP BY author;</code> // aliases with group by
+  +----------------------+----------+
+  | author | COUNT(*) |
+  +----------------------+----------+
+  | Jhumpa Lahiri | 2 |
+  | Neil Gaiman | 3 |
+  | Dave Eggers | 3 |
+  | Michael Chabon | 1 |
+  | Patti Smith | 1 |
+  | Raymond Carver | 2 |
+  | Don DeLillo | 1 |
+  | John Steinbeck | 1 |
+  | David Foster Wallace | 2 |
+  | Dan Harris | 1 |
+  | Freida Harris | 1 |
+  | George Saunders | 1 |
+  | NULL | 1 |
+  +----------------------+----------+
+  13 rows in set (0.010 sec)</li>
+</ul>
+<h2 id="group-by-having">GROUP BY HAVING</h2>
+<ul>
+<li>having is being useful when you want to add a condition of group because where can't be used on group by</li>
+<li><code>select .... from table where &lt;condition&gt; group by &lt;column&gt; having &lt;condition&gt;</code></li>
+</ul>
+<h1 id="min-and-max">Min and MAx</h1>
+<ul>
+<li>it has to be applied at column while selecting columns.</li>
+<li><code>it runs based on ASCII code</code></li>
+<li>when text contains it return least and most ascii code data</li>
+<li>for number min, max applies as intended</li>
+<li><code>select min(pages) from books;</code></li>
+<li><code>select max(released_year) from books;</code></li>
+<li><code>mysql&gt; select min(released_year) as firstpublished, max(released_year), count(*), concat(author_fname,' ',author_lname) as author from books group by author;</code></li>
+<li>this does mix and max grouping
+  +----------------+--------------------+----------+----------------------+
+  | firstpublished | max(released_year) | count(*) | author |
+  +----------------+--------------------+----------+----------------------+
+  | 1996 | 2003 | 2 | Jhumpa Lahiri |
+  | 2001 | 2016 | 3 | Neil Gaiman |
+  | 2001 | 2013 | 3 | Dave Eggers |
+  | 2000 | 2000 | 1 | Michael Chabon |
+  | 2010 | 2010 | 1 | Patti Smith |
+  | 1981 | 1989 | 2 | Raymond Carver |
+  | 1985 | 1985 | 1 | Don DeLillo |
+  | 1945 | 1945 | 1 | John Steinbeck |
+  | 2004 | 2005 | 2 | David Foster Wallace |
+  | 2014 | 2014 | 1 | Dan Harris |
+  | 2001 | 2001 | 1 | Freida Harris |
+  | 2017 | 2017 | 1 | George Saunders |
+  | NULL | NULL | 1 | NULL |
+  +----------------+--------------------+----------+----------------------+
+  13 rows in set (0.009 sec)</li>
+</ul>
+<h1 id="sub-queries">sub queries</h1>
+<ul>
+<li>query has to used in the where clause of another query</li>
+<li>sub query returns a value, that will act as clause.</li>
+<li><code>mysql&gt; select * from books where pages = (select max(pages) from books);</code> // gives highest pages record number
+  +---------+-------------------------------------------+--------------+--------------+---------------+----------------+-------+
+  | book_id | title | author_fname | author_lname | released_year | stock_quantity | pages |
+  +---------+-------------------------------------------+--------------+--------------+---------------+----------------+-------+
+  | 7 | The Amazing Adventures of Kavalier &amp; Clay | Michael | Chabon | 2000 | 68 | 634 |
+  +---------+-------------------------------------------+--------------+--------------+---------------+----------------+-------+
+  1 row in set (0.241 sec)</li>
+<li><code>mysql&gt; select * from books order by pages desc limit 1;</code> // order by also does the same.
+  +---------+-------------------------------------------+--------------+--------------+---------------+----------------+-------+
+  | book_id | title | author_fname | author_lname | released_year | stock_quantity | pages |
+  +---------+-------------------------------------------+--------------+--------------+---------------+----------------+-------+
+  | 7 | The Amazing Adventures of Kavalier &amp; Clay | Michael | Chabon | 2000 | 68 | 634 |
+  +---------+-------------------------------------------+--------------+--------------+---------------+----------------+-------+
+  1 row in set (0.008 sec)</li>
+<li><code>diff is order by returns only one query if multiple same max values found.</code></li>
+</ul>
+<h1 id="sum">sum</h1>
+<ul>
+<li>To get sum of all values of a given column.</li>
+<li>
+<p><code>mysql&gt; select sum(pages) from books;</code>
+  +------------+
+  | sum(pages) |
+  +------------+
+  | 6623 |
+  +------------+
+  1 row in set (0.008 sec)</p>
+</li>
+<li>
+<p><code>mysql&gt; select sum(stock_quantity) from books;</code>
+  +---------------------+
+  | sum(stock_quantity) |
+  +---------------------+
+  | 2450 |
+  +---------------------+
+  1 row in set (0.006 sec)</p>
+</li>
+<li>
+<p>we can use sum and group by, so it does sum of all individual groups</p>
+</li>
+<li><code>mysql&gt; select  concat(author_fname,' ',author_lname) as author, sum(stock_quantity) from books group by author;</code>
+  +----------------------+---------------------+
+  | author | sum(stock_quantity) |
+  +----------------------+---------------------+
+  | Jhumpa Lahiri | 129 |
+  | Neil Gaiman | 155 |
+  | Dave Eggers | 284 |
+  | Michael Chabon | 68 |
+  | Patti Smith | 55 |
+  | Raymond Carver | 35 |
+  | Don DeLillo | 49 |
+  | John Steinbeck | 95 |
+  | David Foster Wallace | 264 |
+  | Dan Harris | 29 |
+  | Freida Harris | 287 |
+  | George Saunders | 1000 |
+  | NULL | NULL |
+  +----------------------+---------------------+
+  13 rows in set (0.012 sec)</li>
+</ul>
+<h1 id="avg">avg</h1>
+<ul>
+<li>it calculates the averge ot all values of selected column result.</li>
+<li>works very similar to sum but does average.</li>
+<li><code>mysql&gt; select  concat(author_fname,' ',author_lname) as author, count(*) ,avg(stock_quantity) from books group by author;</code>
+  +----------------------+----------+---------------------+
+  | author | count(*) | avg(stock_quantity) |
+  +----------------------+----------+---------------------+
+  | Jhumpa Lahiri | 2 | 64.5000 |
+  | Neil Gaiman | 3 | 51.6667 |
+  | Dave Eggers | 3 | 94.6667 |
+  | Michael Chabon | 1 | 68.0000 |
+  | Patti Smith | 1 | 55.0000 |
+  | Raymond Carver | 2 | 17.5000 |
+  | Don DeLillo | 1 | 49.0000 |
+  | John Steinbeck | 1 | 95.0000 |
+  | David Foster Wallace | 2 | 132.0000 |
+  | Dan Harris | 1 | 29.0000 |
+  | Freida Harris | 1 | 287.0000 |
+  | George Saunders | 1 | 1000.0000 |
+  | NULL | 1 | NULL |
+  +----------------------+---</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-dep
+  labels:
+    app: nginx
+spec: # spec deployment
+  replicas: 2 # value 1 for replicating 1
+  selector:
+    matchLabels: #----Connecting deployment to pods.
+      app: nginx
+  template: # pod config
+    metadata:
+      labels:
+        app: nginx
+    spec: # spec for pod
+      containers:
+        - name: nginx # this name label has to match with matchLabels
+          image: nginx:1.16
+          ports:
+            - containerPort: 8080 # it should match with target pod of service.

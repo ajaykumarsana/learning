@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-secret # this name shold match with secret names in deployment
+type: Opaque #default for arbitrary key-value pairs
+data:
+  mongo-root-username: cm9vdA==        # base64 for "root" echo 
+  mongo-root-password: ZXhhbXBsZQ==    # base64 for "example"
