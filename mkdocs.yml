@@ -40,6 +40,7 @@ nav:
       - volumes: k8s/volumes.md
       - statefulSet: k8s/statefulSet.md
       - services: k8s/service Types.md
+      - resources: k8s/resources.md
 
 # Choose a theme (the clean, popular "material" theme is recommended)
 theme:
